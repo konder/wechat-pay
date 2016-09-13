@@ -1,3 +1,5 @@
+增加了app支付
+
 # 微信支付 for Nodejs
 
 ## 初始化
@@ -14,7 +16,7 @@ var payment = new Payment(initConfig);
 ```
 所有参数都不是必须的，不过这样配置最省事。实际调用时候的参数若有同名会覆盖。
 
-## 付个钱
+## 付个钱（公众号）
 ```javascript
 var order = {
   body: '吮指原味鸡 * 1',
@@ -30,6 +32,22 @@ payment.getBrandWCPayRequestParams(order, function(err, payargs){
   res.json(payargs);
 });
 ```
+
+## 付个钱（APP支付）
+```javascript
+var order = {
+  body: '吮指原味鸡 * 1',
+  out_trade_no: 'kfc' + (+new Date),
+  total_fee: 10 * 100,
+  spbill_create_ip: req.ip,
+  trade_type: 'APP'
+};
+
+payment.getAppPayRequestParams(order, function(err, payargs){
+  res.json(payargs);
+});
+```
+
 
 注：
 1. 页面的路径需要位于`支付授权目录`下
